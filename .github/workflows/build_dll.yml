@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4  # 这里也同步更新到 v4，更稳
 
       - name: Install Rust 32-bit target
         run: rustup target add i686-pc-windows-msvc
@@ -15,7 +15,7 @@ jobs:
         run: cargo build --release --target i686-pc-windows-msvc
 
       - name: Upload DLL Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # 【关键修改】这里改成了 v4
         with:
           name: zen_stock_dll
           path: target/i686-pc-windows-msvc/release/*.dll
