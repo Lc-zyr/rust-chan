@@ -1,0 +1,21 @@
+name: Build TDX DLL
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust 32-bit target
+        run: rustup target add i686-pc-windows-msvc
+
+      - name: Build Release (32-bit)
+        run: cargo build --release --target i686-pc-windows-msvc
+
+      - name: Upload DLL Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: zen_stock_dll
+          path: target/i686-pc-windows-msvc/release/*.dll
